@@ -15,4 +15,5 @@ class TestSettings(BaseTest):
     def test_toggle_airplane_mode(self, driver):
         settings_page = SettingsPage(driver)
         settings_page.toggle_airplane_mode()
-        assert True
+        # Testing purpose
+        raise NotImplemented

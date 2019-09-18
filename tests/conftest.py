@@ -38,16 +38,8 @@ def config():
     :return: config object
     """
     config = configparser.ConfigParser()
-    config.read('../../local.ini')
+    config.read('./config.ini')
     return config
-
-
-def get_default_desired_caps(config):
-    desired_caps = {
-        "waitForQuiescence": config.get("AppiumCommon", "appium.waitForQuiescence"),
-        "orientation": config.get("AppiumCommon", "appium.orientation")
-    }
-    return desired_caps
 
 
 @pytest.fixture(scope="class", autouse=False)
@@ -56,8 +48,11 @@ def driver(request, config):
     Init and yield driver
     """
     driver = request.config.getoption("--driver")
-    desired_caps = get_default_desired_caps(config)
-    hub = config["AppiumServer"]["appium.appiumServer"]
+    desired_caps = {
+        "waitForQuiescence": bool(config.get("AppiumCommon", "appium.waitForQuiescence")),
+        "orientation": config.get("AppiumCommon", "appium.orientation")
+    }
+    hub = config.get("AppiumServer", "appium.appiumServer")
 
     if driver.lower() == "ios":
         desired_caps["platformName"] = config.get("AppiumiOS", "ios.platformName")
@@ -66,7 +61,7 @@ def driver(request, config):
         desired_caps["udid"] = config.get("AppiumiOS", "ios.udid")
         desired_caps["app"] = config.get("AppiumiOS", "ios.app")
         desired_caps["automationName"] = config.get("AppiumiOS", "ios.automationName")
-        # desired_caps["usePrebuiltWDA"] = config.get("AppiumiOS", "ios.usePrebuiltWDA")
+        desired_caps["updatedWDABundleId"] = "com.facebook.WebDriverAgentRunner.hienphan"
         # desired_caps["noReset"] = config.get("AppiumiOS", "ios.noReset")
 
     elif driver.lower() == "android":
@@ -79,7 +74,7 @@ def driver(request, config):
 
     else:
         print(f'The {driver} driver is not supported!')
-
+    print(desired_caps)
     driver = webdriver.Remote(hub, desired_caps)
     request.cls.driver = driver
 
