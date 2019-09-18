@@ -1,1 +1,10 @@
 # pytest-allure-mobile-automation
+
+# Run test in parallel with pytest-xdist lib:
+    pytest -n=2 --alluredir=./allure/ --driver iOS --env QA -s -v
+
+# Run test with allure report:
+    pytest tests/ios --alluredir=./allure/ --driver iOS --env QA -s -v
+
+# Generate report:
+    allure generate "./allure/" -o ./reports/ --clean
