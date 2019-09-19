@@ -21,8 +21,9 @@ def pytest_exception_interact(node, report):
     path = node.location[0]
     print(f'\nPath: {path}')
     if node and report.failed:
-        class_name = node._nodeid.split(".py::")[-1].replace("::", "_class_")
-        helpers.save_screenshot(node.funcargs.get('driver'), class_name)
+        if node.funcargs.get('driver') is not None:
+            class_name = node._nodeid.split(".py::")[-1].replace("::", "_class_")
+            helpers.save_screenshot(node.funcargs.get('driver'), class_name)
 
 
 # Create driver and env command line addoption
