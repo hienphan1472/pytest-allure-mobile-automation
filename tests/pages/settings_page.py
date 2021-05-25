@@ -6,7 +6,7 @@ from lib.utils import Utils
 class SettingsPage:
     __AIRPLANE_MODE_TOGGLE = {
         "iOS": (MobileBy.IOS_PREDICATE, "type == 'XCUIElementTypeSwitch'"),
-        "Android": (MobileBy.ACCESSIBILITY_ID, "AndroidIdentifier")
+        "Android": (MobileBy.XPATH, "//android.widget.TextView[@text='Network & internet']")
     }
 
     def __init__(self, driver):
@@ -15,4 +15,4 @@ class SettingsPage:
 
     def toggle_airplane_mode(self):
         print("Function: toggle_airplane_mode")
-        Utils.click_to_element(self, self.driver, **self.__AIRPLANE_MODE_TOGGLE)
+        Utils.click_to_element(self.driver, **self.__AIRPLANE_MODE_TOGGLE)

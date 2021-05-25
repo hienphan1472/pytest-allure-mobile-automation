@@ -1,0 +1,27 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+Appium-Python-Client = '==1.1.0'
+pytest-xdist = '==1.30.0'
+pytest = '==5.2.0'
+selenium = '==3.141.0'
+allure-pytest = '==2.8.5'
+webdriver_manager = '==1.7'
+rootpath = '==0.1.1'
+moment = '==0.8.2'
+google-auth-oauthlib = '==0.4.2'
+google-auth-httplib2 = '==0.0.4'
+google-api-python-client = '==1.12.8'
+Faker = '==2.0.2'
+delayed-assert = '==0.3.5'
+requests = '==2.25.1'
+
+
+[scripts]
+test_all = "pipenv run pytest --alluredir=./reports --clean-alluredir"
+report = "allure generate ./reports/ -o ./allure_result/ --clean"
