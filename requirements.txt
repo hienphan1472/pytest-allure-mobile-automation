@@ -1,0 +1,8 @@
+selenium~=3.141.0
+moment~=0.8.2
+pytest~=5.2.0
+Appium-Python-Client~=1.1.0
+configparser~=5.0.2
+rootpath~=0.1.1
+webdriver_manager~=1.7
+allure-pytest~=2.8.5
